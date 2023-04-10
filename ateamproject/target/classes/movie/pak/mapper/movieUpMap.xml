@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="movieup">
+  <insert id="add" parameterType="muvo">
+	insert INTO movieup values(movieup_seq.nextVal,
+	#{mimg},#{mname},#{msaram},#{mtype},#{mtime},#{mage},#{mstartday},#{mdirec},
+	#{mstory},#{mactor},#{mgrno})
+  </insert>
+  <!-- 영화 등록 리스트 페이징 -->
+  <select id="totalCount" resultType="int">
+  select count(*) from movieup
+  </select>
+  
+  <select id="listpage" parameterType="map" resultType="muvo">
+  	select * from(
+	select rownum r_num, a.* from(
+	select * from movieup order by mno asc
+	)a 
+	)where r_num between 1 and 10
+  </select>
+  
+  <select id="listmovie" resultType="muvo">
+  select
+		mno,mimg,mname,msaram,mtype,mtime,mage,mstartday,mdirec,mstory,mactor from movieup order by 1 desc
+  </select>
+  
+  <select id="detailmovie" parameterType="int" resultType="muvo">
+   select
+		mno,mimg,mname,msaram,mtype,mtime,mage,mstartday,mdirec,mstory,mactor from movieup where mno=#{mno}
+  </select>
+  
+  <update id="updatemovie" parameterType="muvo">
+  update movieup set
+  mimg=#{mimg},mname=#{mname},msaram=#{msaram},mtype=#{mtype},mtime=#{mtime},mage=#{mage},
+  mstartday=#{mstartday},mdirec=#{mdirec},mstory=#{mstory},mactor=#{mactor} where mno=#{mno}
+  </update>
+  
+ <delete id="deletemovie" parameterType="int">
+ delete from movieup where mno=#{mno}
+ </delete> 
+ 
+ 
+ <!-- 영화별 후기 및 평점 등록-->
+ 
+ <select id="listmoviecomm" resultType="mcvo" parameterType="int">
+   select commno,mno,lid,mgood,comm,commdate from moviecomm where mno=#{mno} order by 1 desc
+ </select>
+ 
+ <insert id="addmoviecomm" parameterType="mcvo">
+insert INTO moviecomm
+         values(moviecomm_seq.nextVal,#{mno},#{lid},#{mgood},#{comm},sysdate)
+ </insert>
+ 
+ <!-- 후기 수정 및 삭제 -->
+ <update id="upmoviecomm" parameterType="mcvo">
+ update moviecomm set mgood=#{mgood}, comm=#{comm} where commno=#{commno}
+ </update>
+ 
+  <select id="delmovie" parameterType="int" resultType="int">
+ select mno from moviecomm where commno=#{commno}
+ </select>
+ 
+ <delete id="delcommno" parameterType="int">
+ delete from moviecomm where commno=#{commno}
+ </delete>
+  
+ <select id="mgoodAvg" parameterType="int" resultType="float">
+ select round(AVG(NVL(mgood,0)),1) as mgoodAvg  from moviecomm where mno=#{mno}
+ </select>
+ 
+ 
+ <!-- 영화, 배우, 감독 전체 검색 -->
+   <select id="searchMv" parameterType="String" resultType="muvo">
+      SELECT mno, mimg, mname, msaram,mtype,mtime,mage,mstartday,mdirec,
+      mstory,mactor FROM MOVIEUP
+      <if test="searchValue != null">
+         <where>
+            MNAME LIKE '%' || #{searchValue} || '%'
+            OR MACTOR LIKE '%' ||#{searchValue} || '%'
+            OR MDIREC LIKE '%' || #{searchValue} || '%'
+         </where>
+      </if>
+      order by 1 desc
+   </select>
+   
+ 
+  </mapper>

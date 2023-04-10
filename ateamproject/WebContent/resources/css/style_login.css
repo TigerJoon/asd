@@ -1,0 +1,278 @@
+/*로그인폼*/
+
+
+
+.inner-container{
+
+  height:700px;
+  top:calc(50vh - 200px);
+  overflow:hidden;
+}
+
+.box{
+  top:30%;
+  position:absolute;
+  width:100%;
+  font-family:Helvetica;
+  color:black;
+  padding:0px 0px;
+}
+.box h1{
+  color: #c9b459;
+  text-align:center;
+  margin:40px 0;
+  font-size:30px;
+    font-weight: 700;
+}
+.box input{
+  display:block;
+  width:350px;
+  margin:10px auto;
+  padding:12px;
+  background:rgba(0,0,0,0.2);
+  border:0;
+}
+.box input:focus,.box input:active,.box button:focus,.box button:active{
+  outline:none;
+}
+.box b{ 
+	color:#c9b459;
+}
+.box button{
+  align:center;
+  background:#C60B05;
+  color:white;
+  padding:12px;
+  font-size:20px;
+  width:350px;
+  margin:10px auto;
+  display:block;
+  cursor:pointer;
+  border:0;
+}
+.box button:hover{
+  background: rgb(198, 11, 5,0.7);
+}
+.box p{
+  margin-top:40px;
+  font-size:16px;
+  text-align:center;
+}
+.box p span:hover{
+  cursor:pointer;
+  color:#C60B05;
+  text-decoration-line:underline;
+}
+
+.box p span{
+  margin-top:40px;
+  font-size:16px;
+  font-weight:bolder;
+  text-align:center;
+  color:#C60B05;
+}
+
+/*회원가입 폼*/
+
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap');
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.wrapper{
+  max-width: 1000px;
+  width: 100%;
+  margin: 100px auto;
+}
+
+.wrapper .title{
+  margin-top:30px;
+  font-size: 30px;
+  font-weight: 700;
+  margin-bottom: 70px;
+  color: #c9b459 ;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+
+
+.wrapper .form .inputfield{
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.wrapper .form .inputfield label{
+   width: 170px;
+   color: #c9b459 ;
+  font-size: 18px;
+  font-weight:bolder;
+}
+
+.wrapper .form .inputfield .input{
+  padding-left:10px;
+  height:40px;
+  width: 500px;
+  outline: none;
+  border: 1px solid #d5dbd9;
+  font-size: 15px;
+  border-radius: 3px;
+}
+
+
+
+.wrapper .form .inputfield .input1{
+  padding-left:10px;
+  height:40px;
+  width: 150px;
+  outline: none;
+  border: 1px solid #d5dbd9;
+  font-size: 15px;
+  border-radius: 3px;
+}
+
+.wrapper .form .inputfield .input2{
+  padding-left:10px;
+  height:40px;
+  width: 235px;
+  outline: none;
+  border: 1px solid #d5dbd9;
+  font-size: 15px;
+  border-radius: 3px;
+}
+
+.wrapper .form .inputfield p{
+   font-size: 15px;
+  font-weight:bolder;
+   color:  #C60B05;
+  margin:20px 20px;
+}
+.wrapper .form .inputfield .check{
+  width: 15px;
+  height: 15px;
+  position: relative;
+  display: block;
+  cursor: pointer;
+}
+.wrapper .form .inputfield .check input[type="checkbox"]{
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+}
+.wrapper .form .inputfield .check .checkmark{
+  width: 15px;
+  height: 15px;
+  border: 1px solid  #C60B05 ;
+  display: block;
+  position: relative;
+}
+.wrapper .form .inputfield .check .checkmark:before{
+  content: "";
+  position: absolute;
+  top: 1px;
+  left: 2px;
+  width: 5px;
+  height: 2px;
+  border: 2px solid;
+  border-color: transparent;
+  display: none;
+}
+.wrapper .form .inputfield .check input[type="checkbox"]:checked ~ .checkmark{
+  background: #C60B05;
+}
+
+.wrapper .form .inputfield .check input[type="checkbox"]:checked ~ .checkmark:before{
+  display: block;
+}
+
+.wrapper .form .inputfield .btn{
+  width: 770px;
+  height:60px;
+   padding: 8px 10px;
+  font-size: 18px; 
+  font-weight:bolder;
+  border: 0px;
+  background:  #C60B05;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 3px;
+  outline: none;
+}
+
+.button-chk{
+   width: 100px;
+  height:40px;
+   margin: 10px 10px;
+  font-size: 15px; 
+  border: 0px;
+  background:  #C60B05;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 3px;
+  outline: none;
+}
+
+.button-chk:hover{
+  background: #c9b459;
+}
+
+.wrapper .form .inputfield .btn:hover{
+  background: #c9b459;
+}
+
+/*마이페이지*/
+
+.mypage {
+	background-color: #E6E6E6;
+	position: relative;
+	height: auto;
+	padding: 30px;
+	text-align: center;
+	border-radius: 1em;
+	width: 800px;
+	margin: auto;
+}
+
+.mybook1 {
+	border: solid;
+	border-width: 1px;
+	border-color: #3B3939;
+	width: 450px;
+	height: auto;
+	width: 800px;
+	margin-top: 50px;
+	margin-left: auto;
+	margin-right: auto;
+	border-radius: 0.5em;
+}
+
+.mybook2 {
+	border: solid;
+	border-width: 1px;
+	border-color: #3B3939;
+	width: 450px;
+	height: auto;
+	margin-top: 40px;
+	width: 800px;
+	margin-left: auto;
+	margin-right: auto;
+	border-radius: 0.5em;
+}
+
+table {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#btn {
+	margin: auto;
+}
+
+
+

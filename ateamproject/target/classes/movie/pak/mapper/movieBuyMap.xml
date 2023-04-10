@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="moviebuy">
+ 
+ <!-- 예매 시 영화 리스트 필요하다     -->
+  <select id="moviename" resultType="muvo" >
+  select mno,mname, mage, mimg from movieup
+  </select>
+  <!-- 상영관 리스트 -->
+  <select id="movieplace" resultType="mbvo">
+  select theater, mbplace, mendtime, mstarttime, mbdate from moviebuy
+  </select>
+  
+  <!-- 영화 예매 total 리스트
+  where 1=1 항상 true라는 뜻!!
+   -->
+  <select id="tickettotal" parameterType="mbvo" resultType="mbvo">
+   select mbno, mbsaram, mbdate, mbpay, mbplace, mbhang, mbyeol, mno, mendtime, mstarttime, theater 
+   from moviebuy where 1=1 
+   <if test="mno != 0">
+   and mno=#{mno} 
+   </if>
+   <if test="mbdate != 0">
+   and mbdate like '%'|| #{mbdate} ||'%'
+   </if>
+   <if test="mstarttime != 0">
+  and mstarttime like '%'|| #{mstarttime} ||'%'
+  </if>
+  order by mbdate, mstarttime
+  </select> 
+  
+  <select id="getMovie" parameterType="int" resultType="muvo">
+   select mno, mname, mimg, mtype, mdirec, mactor from movieup where mno=#{mno}
+  </select>
+  
+  <!-- RestController  -->
+  <select id="gettheater" parameterType="int" resultType="mbvo">
+    select mno, theater, mbplace from moviebuy where mno=#{mno}
+  </select>
+
+<!-- 
+   <resultMap type="muvo" id="movieResult">
+   <id property="mno" column="mno" javaType="int"/>
+    <result property="mage" column="mage" javaType="int"/>
+  <result property="mname" column="mname"/>
+  <result property="mimg" column="mimg"/>
+  <collection property="moviebuy" javaType="java.util.List" ofType="mbvo" resultMap="movieResult2" >
+  </collection>
+   </resultMap>
+   <resultMap type="mbvo" id="movieResult2">
+    <result property="theater" column="theater"/>
+   <result property="mbplace" column="mbplace"/>
+   <result property="mendtime" column="mendtime"/>
+   <result property="mstarttime" column="mstarttime"/>
+   <result property="mbdate" column="mbdate"/>
+   </resultMap>
+  <select id="movieList" resultMap="movieResult" parameterType="int">
+  select u.mno,u.mage, u.mname, u.mimg, b.theater, b.mbplace, b.mendtime, b.mstarttime, b.mbdate 
+from moviebuy b, movieup u where b.mno=u.mno and u.mno=#{mno}
+  </select>
+   -->
+  </mapper>

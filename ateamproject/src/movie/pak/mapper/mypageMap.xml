@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mypagep">
+	
+	<!-- 순서 1번  -->
+ 	<!-- 영화 예매 내역 시작  -->	
+ 	
+ 	<select id="moviep" parameterType="String" resultMap="movieupresult">
+ 		select mu.mimg, mu.mname, mu.mstartday, mb.mbdate, mb.mstarttime 
+		from movieup mu, moviebuy mb where mu.mno = mb.mno and lid=#{lid}
+ 	</select>
+	
+	<!-- 순서 2번  -->
+	<!-- result map 시작 -->
+	<resultMap type="muvo" id="movieupresult">
+	<result property="mimg" column="mimg"/>
+	<result property="mname" column="mname"/>
+	<result property="mstartday" column="mstartday"/>
+	
+	<collection property="moviebuy" javaType="java.util.List" 
+	resultMap="moviebuyresult" ofType="mbvo">
+	</collection>
+	</resultMap>	
+ 	<!-- result map 끝 -->	
+ 	
+ 	<!-- 순서 3번  -->
+ 	<!--collection mapping 시작 -->	
+ 	<resultMap type="mbvo" id="moviebuyresult">
+ 	<result property="mbdate" column="mbdate"/>
+ 	<result property="mstarttime" column="mstarttime"/>
+ 	</resultMap>
+ 	<!--collection mapping 끝 -->
+ 	
+ 	<!-- 영화 예매 내역 끝 -->	
+ 
+ 
+<!-- 스낵 쿼리 시작 -->
+<select id="snackp" parameterType="String" resultMap="snackvoresult">
+select sk.popimg, sk.popname, b.totalpay
+from snack sk, buy b where sk.popno = b.popno and b.lid=#{lid}
+</select>
+
+
+<!-- result map 시작 -->
+<resultMap type="snackvo" id="snackvoresult">
+<result property="popimg" column="popimg" />
+<result property="popname" column="popname"/>
+
+<collection property="buy" javaType="java.util.List"
+resultMap="buyvoresult" ofType="buyvo">
+</collection>
+</resultMap>
+<!-- result map 끝 -->
+
+<!-- collection mapping 시작-->
+<resultMap type="buyvo" id="buyvoresult">
+<result property="totalpay" column="totalpay"/>
+</resultMap>
+<!-- collection mapping 끝-->
+
+<!-- 스낵 쿼리 끝 -->
+
+
+<!-- Q&A 쿼리 시작 -->
+<select id="qnap" parameterType="String" resultMap="mvoresult">
+select qd.subject, qd.content, qd.mdate from qaboard qd, login lg
+where qd.writer = lg.lid and writer=#{writer}
+</select>
+
+<!-- result map 시작 -->
+<resultMap type="mvo" id="mvoresult">
+<collection property="qnaboard" javaType="java.util.List"
+resultMap="qvoresult" ofType="qvo"/>
+</resultMap>
+<!-- result map 끝 -->
+
+<!-- collection mapping 시작-->
+<resultMap type="qvo" id="qvoresult">
+<result property="subject" column="subject"/>
+<result property="content" column="content"/>
+<result property="mdate" column="mdate"/>
+</resultMap>
+<!-- collection mapping 끝-->
+
+<!-- Q&A 쿼리 끝 -->
+
+<!-- 좋아요 선택한 장르  -->
+ 	<select id="liketype" resultType="String" parameterType="String">
+        SELECT mu.mtype
+        FROM movielike ml
+        JOIN movieup mu ON ml.mno = mu.mno
+        WHERE ml.lid = #{lid}
+    </select>
+
+ 	
+</mapper>
